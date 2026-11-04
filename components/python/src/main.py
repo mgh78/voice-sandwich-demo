@@ -71,7 +71,7 @@ Available cheeses: swiss, cheddar, provolone.
 """
 
 agent = create_agent(
-    model="anthropic:claude-haiku-4-5",
+    model="openai:gpt-5.4-mini",
     tools=[add_to_order, confirm_order],
     system_prompt=system_prompt,
     checkpointer=InMemorySaver(),
