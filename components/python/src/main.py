@@ -15,7 +15,8 @@ from langgraph.checkpoint.memory import InMemorySaver
 from starlette.staticfiles import StaticFiles
 
 from assemblyai_stt import AssemblyAISTT
-from components.python.src.cartesia_tts import CartesiaTTS
+from cartesia_prompts import CARTESIA_TTS_SYSTEM_PROMPT
+from cartesia_tts import CartesiaTTS
 from events import (
     AgentChunkEvent,
     AgentEndEvent,
@@ -58,7 +59,7 @@ def confirm_order(order_summary: str) -> str:
     return f"Order confirmed: {order_summary}. Sending to kitchen."
 
 
-system_prompt = """
+system_prompt = f"""
 You are a helpful sandwich shop assistant. Your goal is to take the user's order.
 Be concise and friendly.
 
@@ -66,7 +67,7 @@ Available toppings: lettuce, tomato, onion, pickles, mayo, mustard.
 Available meats: turkey, ham, roast beef.
 Available cheeses: swiss, cheddar, provolone.
 
-${CARTESIA_TTS_SYSTEM_PROMPT}
+{CARTESIA_TTS_SYSTEM_PROMPT}
 """
 
 agent = create_agent(
